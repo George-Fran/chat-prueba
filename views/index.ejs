@@ -39,18 +39,23 @@
             </button>
         </div>
     </form>
-    <script src="https://cdn.socket.io/socket.io-4.0.0.js"></script>
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script src="/js/app.js"></script>
     <script>
         $(function () {
             var socket = io();
+            console.log("Conexión de socket.io establecida"); // Añade este log para verificar la conexión
+
             $("form").submit(function () {
                 socket.emit("chat message", $("#m").val());
+                console.log("Mensaje enviado: " + $("#m").val()); // Añade este log para verificar el envío del mensaje
                 $("#m").val("");
                 return false;
             });
+
             socket.on("recibido", function (objeto) {
+                console.log("Mensaje recibido: " + objeto.txt); // Añade este log para verificar la recepción del mensaje
                 $("#messages").append(
                     $("<li>").text(objeto.txt + " - " + "Un webon random")
                 );
