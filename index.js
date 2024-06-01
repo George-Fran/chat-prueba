@@ -4,7 +4,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var port = process.env.PORT || 3000;
 
-app.set('view engine', 'pug');
+app.set('view engine', 'ejs');
 app.set('views', './views');
 
 app.get('/', (req, res) => {

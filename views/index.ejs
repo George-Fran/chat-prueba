@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="https://kit.fontawesome.com/36284a76ca.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+    <link rel="shortcut icon" href="https://cdn.discordapp.com/attachments/906313204022513734/959937780824281199/dev.png">
+</head>
+<body>
+    <nav>
+        <div class="logo">WeboneSchat</div>
+        <div class="menu">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+        <ul class="nav-principal dp-nav cx-nav">
+            <li>
+                <a href="#">No es</a>
+            </li>
+            <li>
+                <a href="#">Aptop</a>
+            </li>
+            <li>
+                <a href="#">Para</a>
+            </li>
+            <li>
+                <a href="#" class="activo">Coneros</a>
+            </li>
+        </ul>
+    </nav>
+
+    <ul id="messages"></ul>
+    <form action="">
+        <input id="m" autocomplete="off">
+        <div class="gordo">
+            <button>
+                <i class="fa-regular fa-paper-plane"></i>
+            </button>
+        </div>
+    </form>
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="/js/app.js"></script>
+    <script>
+        $(function () {
+            var socket = io();
+            $("form").submit(function () {
+                socket.emit("chat message", $("#m").val());
+                $("#m").val("");
+                return false;
+            });
+            socket.on("recibido", function (objeto) {
+                $("#messages").append(
+                    $("<li>").text(objeto.txt + " - " + "Un webon random")
+                );
+                window.scrollTo(0, document.body.scrollHeight);
+            });
+        });
+    </script>
+</body>
+</html>
